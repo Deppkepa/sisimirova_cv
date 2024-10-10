@@ -4,20 +4,19 @@ a = np.array([3, 2, 1], dtype="uint8")
 
 assert a.dtype == "uint8"
 
-b = np.arange(25).reshape(5, 5)
-b[::1] = 0
+b = np.zeros(25).reshape(5, 5) #исправила
 
 assert b.shape == (5, 5) and b.sum() == 0
 
-c = np.array([[[1, 1], [1, 1]]])
+c = np.ones((2,2,2)) #исправила
 
 assert c.ndim == 3 and c.sum() / c.size == 1
 
-d = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4])
+d = np.arange(-5,5) #исправила
 
 assert np.all(d == np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]))
 
-e = np.array([0., 0.25, 0.5, 0.75, 1.0])
+e = np.linspace(0,1, num=5) #исправила
 
 assert np.all(e == np.array([0., 0.25, 0.5, 0.75, 1.0]))
 
@@ -25,9 +24,10 @@ f = np.arange(5 * 5).reshape(5, 5)
 fc = f[::2, 1::2]
 
 assert np.all(fc == np.array([[1, 3], [11, 13], [21, 23]]))
-#
+
 g = np.ones((5, 3))
-gc = g.ravel()[:5:] * 3.
+gc = g.sum(axis=1) #исправила
+
 assert np.all(gc == np.array([3., 3., 3., 3., 3.]))
 
 h = np.arange(5) + 1
@@ -36,7 +36,7 @@ hc = h * 2.
 assert np.all(hc == np.array([2., 4., 6., 8., 10.]))
 
 j = np.array([1, 2, 3, 4, 9, 7, 11, 12, 15, 14, 33])
-mask = np.isin(j, [3, 9, 12, 15, 33])
+mask = (j%3) == 0 #исправила
 jc = j[mask]
 
 assert np.all(jc == np.array([3, 9, 12, 15, 33]))
@@ -48,12 +48,12 @@ kl = k ** l
 assert np.all(kl == np.array([1, 4, 27, 64, 625]))
 
 m = np.array([2, 2, 2, 3, 3, 3])
-mc = np.sum(m) / np.size(m) % 2
+mc = m.std() #исправила
 
 assert mc == 0.5
 
 n = np.array([1, 2, 3, 4, 5, 6])
-nc = np.sum(n) / np.size(n)
+nc = n.mean() #исправила
 
 assert nc == 3.5
 
